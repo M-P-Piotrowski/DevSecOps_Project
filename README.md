@@ -15,11 +15,17 @@
     - InfluxDB, 
     - Grafana.
 
+- Configuration (Security)
+    - Find the ".env.example" file,
+    - Create a copy named ".env",
+    - Generate an API Token in your InfluxDB instance and paste it into the ".env" file,
+    - Create a "password.txt" for Mosquitto authentication (Refer to "mosquitto.conf")
+
 - How to execute the project in Command Prompt:
     - docker copose up -d
     - pip install paho-mqtt
     - python sim_plug.py
-    - Navigate to localhost:3000 to see the dashboard
+    - Navigate to localhost:3000 to see the dashboard (Grafana)
 
 - Security aspect:
     - Authentication: 
