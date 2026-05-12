@@ -1,0 +1,17 @@
+# DO NOT UPLOAD THESE
+.env
+password.txt
+
+# Ignore database data
+influxdb_data/
+mosquitto_data/
+grafana_data/
+mosquitto_log/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+.venv/
+
+# Ignore OS files
+.DS_Store

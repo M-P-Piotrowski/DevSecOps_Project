@@ -1,0 +1,47 @@
+services:
+  project_broker:
+    image: eclipse-mosquitto
+    container_name: project_broker
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+  #relative path, so every computer can run it
+      - "./mosquitto_data:/mosquitto/config"
+    command: mosquitto -c /mosquitto/config/mosquitto.conf
+
+  project_db:
+    image: influxdb:2.7
+    container_name: project_db
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+  project_telegraf:
+    image: telegraf:1.28
+    container_name: project_telegraf
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    depends_on:
+      - project_broker 
+      - project_db
+
+  project_grafana:
+    image: grafana/grafana-oss:latest
+    container_name: project_grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+
+
+volumes:
+  mosquitto_secure_data:
+  influxdb_data:
+  grafana_data:
